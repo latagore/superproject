@@ -69,9 +69,9 @@ public class Front extends HttpServlet {
 			this.getServletContext().getNamedDispatcher("Login")
 					.forward(request, response);
 		} else if (path.matches("/checkout(/)?")){
-			// redirect to checkout controller
+			// TODO redirect to checkout controller
 		} else if (path.startsWith("/addItem")){
-			// redirect to add item controller
+			// TODO redirect to add item controller
 		} else {
 			// TODO redirect to 404?
 		}

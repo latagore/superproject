@@ -9,4 +9,9 @@ public class Item {
 		return null;
 	}
 
+	public List<items> getAllItems() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

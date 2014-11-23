@@ -31,28 +31,45 @@ public class CategoryController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getPathInfo();
+		Category cm = (Category) this.getServletContext().getAttribute("category");
+		Item im = (Item) this.getServletContext().getAttribute("item");
+		List<String> allCategories = cm.getCategories();
+		List<items> items;
 		
-		// get the information after "/category/" in the path
-		String categoryName = path.substring(
-				path.substring(1) // removes the first slash
-						.indexOf('/')); // removes everything before the second slash
-						
-		
-		// check that the category exists
-		Category category = (Category) this.getServletContext().getAttribute("category");
-		List<String> categories = category.getCategories();
-		if (!categories.contains(category)){
-			// TODO redirect to 404 page
+		boolean isAllItemsSelected = true;
+		// if path starts with /category, specific category is selected
+		// otherwise, if path starts with /allItems, all items are selected
+		if (path.startsWith("/category")){
+			isAllItemsSelected = false;
+			
+			// get the information after "/category/" in the path			
+			String categoryName = path.substring(
+					path.substring(1) // removes the first slash
+					.indexOf('/')); // removes everything before the second slash
+
+			// check if category exists
+			if (!cm.hasCategory(categoryName)){
+				// TODO go to 404 page
+				return;
+			}
+
+			// get all the items for this category
+			items = im.getItemsByCategoryName(categoryName);
+			request.setAttribute("selectedCategory", categoryName);
+			
+		} else if (path.matches("/allItems(/)?")){
+			items = im.getAllItems();
+		} else {
+			// TODO log error in a better way
+			throw new ServletException("Category controller was reached but path is not acceptable: path = " + path);
 		}
 		
-		// find all the items names that have this category name
-		Item item = (Item) this.getServletContext().getAttribute("item");
-		List<items> l = item.getItemsByCategoryName(categoryName);
-		
 		// redirect to category jsp
-		request.setAttribute("items", l);
+		request.setAttribute("categories", allCategories);
+		request.setAttribute("items", items);
+		request.setAttribute("isAllItemsSelected", isAllItemsSelected);
 		request.getRequestDispatcher("/WEB-INF/Category.jspx")
-			.forward(request, response);
+				.forward(request, response);
 	}
 
 	/**

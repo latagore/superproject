@@ -12,4 +12,9 @@ public class Category {
 		return null;
 	}
 
+	public boolean hasCategory(String categoryName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
