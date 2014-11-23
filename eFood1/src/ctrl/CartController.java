@@ -29,14 +29,6 @@ public class CartController extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		this.getServletContext().setAttribute("cart", new Cart());
-	}
-
-
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

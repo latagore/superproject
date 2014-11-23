@@ -26,17 +26,6 @@ public class CategoryController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		Category category = new Category();
-		this.getServletContext().setAttribute("category", category);
-		
-		Item item = new Item();
-		this.getServletContext().setAttribute("item", item);
-		
-	}
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

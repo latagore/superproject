@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	version="3.1">
-	<display-name>eFood1</display-name>
-	<servlet>
-		<servlet-name>Category</servlet-name>
-		<servlet-class>ctrl.CategoryController</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>Cart</servlet-name>
-		<servlet-class>ctrl.CartController</servlet-class>
-	</servlet>
-
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Protected Context</web-resource-name>
-			<url-pattern>/Login</url-pattern>
-		</web-resource-collection>
-		<!-- auth-constraint goes here if you requre authentication -->
-		<user-data-constraint>
-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint>
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>eFood1</display-name>
+  <servlet>
+    <servlet-name>Category</servlet-name>
+    <servlet-class>ctrl.CategoryController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Cart</servlet-name>
+    <servlet-class>ctrl.CartController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>HomePage</servlet-name>
+    <servlet-class>ctrl.HomePageController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>ctrl.LoginController</servlet-class>
+  </servlet>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Protected Context</web-resource-name>
+      <url-pattern>/Login</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
 </web-app>
