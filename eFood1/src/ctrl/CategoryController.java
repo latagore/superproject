@@ -29,6 +29,14 @@ public class CategoryController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    // Input:
+    // <path> : (/category/(.)+)|(/allItems)
+    //
+    // Output to Category.jspx:
+    // List<String> categories
+    // List<items> items;
+    // String selectedCategory
+    // boolean isAllCategoriesSelected
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getPathInfo();
 		Category cm = (Category) this.getServletContext().getAttribute("category");
