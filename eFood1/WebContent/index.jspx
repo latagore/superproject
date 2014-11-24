@@ -8,7 +8,7 @@
 		omit-xml-declaration="true" />
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Insert title here</title>
+<title>Home | Food R Us</title>
 </head>
 <body>
 	<div id="header">
@@ -23,7 +23,8 @@
 		<jsp:include page="footer.jspx">
 		<jsp:param name="myVar" value="${instanceVar}"/>
 		</jsp:include>
-	</div>x`
+	</div>
+	
 </body>
 </html>
 </jsp:root>

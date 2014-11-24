@@ -13,9 +13,9 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>Cart | E-Shopper</title>
-	<link href="css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
-	<link href="css/main.css" rel="StyleSheet" type="text/css" /> 
-	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="StyleSheet" type="text/css" /> 
+	<link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<section id="cart_items">

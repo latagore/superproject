@@ -18,7 +18,7 @@ import model.Login;
 /**
  * Servlet implementation class Front
  */
-@WebServlet("/*")
+@WebServlet("/Front/*")
 public class Front extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

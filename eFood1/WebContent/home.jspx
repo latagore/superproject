@@ -13,9 +13,9 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>Checkout | E-Shopper</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/font-awesome.min.css" rel="stylesheet"/>
-	<link href="css/main.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet"/>
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet"/>
 </head>
 <body>
 	<section>
@@ -50,7 +50,7 @@
 						<div class="brands_products"><!--brands_products--></div><!--/brands_products-->
 						
 						<div class="shipping text-center"><!--shipping-->
-							<img src="images/home/shipping.jpg" alt="" />
+							<img src="${pageContext.request.contextPath}/images/home/shipping.jpg" alt="" />
 						</div><!--/shipping-->
 					
 					</div>
@@ -63,7 +63,7 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 										<div class="productinfo text-center">
-											<img src="images/home/f_food1.jpg" alt="" />
+											<img src="${pageContext.request.contextPath}/images/home/f_food1.jpg" alt="" />
 											<h2>$6.49/lb</h2>
 											<p>T6 Sirloin Meat</p>
 											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
@@ -75,7 +75,7 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="images/home/f_food2.jpg" alt="" />
+										<img src="${pageContext.request.contextPath}/images/home/f_food2.jpg" alt="" />
 										<h2>$6.72/lb</h2>
 										<p>R3 Breast Meat</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text/></i>Add to cart</a>
@@ -87,7 +87,7 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="images/home/f_food3.jpg" alt="" />
+										<img src="${pageContext.request.contextPath}/images/home/f_food3.jpg" alt="" />
 										<h2>$4.3/ea</h2>
 										<p>Brownie Ice Cream with Strawberry</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
@@ -99,12 +99,12 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="images/home/f_food4.jpg" alt="" />
+										<img src="${pageContext.request.contextPath}/images/home/f_food4.jpg" alt="" />
 										<h2>$4.26/ea</h2>
 										<p>Semi-Cheddar Cheese by JC</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
 									</div>
-									<img src="images/home/new.png" class="new" alt="" />
+									<img src="${pageContext.request.contextPath}/images/home/new.png" class="new" alt="" />
 								</div>
 							</div>
 						</div>
@@ -112,12 +112,12 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="images/home/f_food5.jpg" alt="" />
+										<img src="${pageContext.request.contextPath}/images/home/f_food5.jpg" alt="" />
 										<h2>$1.42/ea</h2>
 										<p>K5 Raisin Cereal</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
 									</div>
-									<img src="images/home/sale.png" class="new" alt="" />
+									<img src="${pageContext.request.contextPath}/images/home/sale.png" class="new" alt="" />
 								</div>
 							</div>
 						</div>
@@ -125,7 +125,7 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="images/home/f_food6.jpg" alt="" />
+										<img src="${pageContext.request.contextPath}/images/home/f_food6.jpg" alt="" />
 										<h2>$6.12/box</h2>
 										<p>E8 Nuts Ice cream</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
