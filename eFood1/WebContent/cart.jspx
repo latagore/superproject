@@ -8,16 +8,16 @@
 		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
 		omit-xml-declaration="true" />
-	<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Cart | E-Shopper</title>
-<link href="css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
-<link href="css/main.css" rel="StyleSheet" type="text/css" />
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Cart | E-Shopper</title>
+	<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="StyleSheet" type="text/css" /> 
+	<link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<section id="cart_items">
@@ -65,16 +65,16 @@
 							<td class="cart_total">
 								<p class="cart_total_price"><f:formatNumber type="currency">${item.price * cart.getMap().get(item)}</f:formatNumber></p>
 							</td>
-							<td class="cart_delete"><a class="cart_quantity_delete"
-								href=""><i class="fa fa-times"></i></a></td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+							</td>
 						</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</section>
-	<!--/#cart_items-->
+	</section> <!--/#cart_items-->
 	<section id="do_action">
 		<div class="container">
 			<div class="heading">
@@ -91,14 +91,13 @@
 							<li>Shipping Cost <span>Free</span></li>
 							<li>Total <span>$63</span></li>
 						</ul>
-						<a class="btn btn-default update" href="">Update</a> <a
-							class="btn btn-default check_out" href="">Check Out</a>
+							<a class="btn btn-default update" href="">Update</a>
+							<a class="btn btn-default check_out" href="">Check Out</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-	<!--/#do_action-->
+	</section><!--/#do_action-->
 </body>
-	</html>
+</html>
 </jsp:root>

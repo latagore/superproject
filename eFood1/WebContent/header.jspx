@@ -13,14 +13,9 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>Home | Food R Us</title>
-    <link href="css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
-	<link href="css/main.css" rel="StyleSheet" type="text/css" /> 
-	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="shortcut icon" href="images/ico/favicon.ico"/>
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png"/>
+    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="StyleSheet" type="text/css" /> 
+	<link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<header id="header"><!--header-->
@@ -35,6 +30,17 @@
 							</ul>
 						</div>
 					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-facebook"><jsp:text/></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"><jsp:text/></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"><jsp:text/></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"><jsp:text/></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"><jsp:text/></i></a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div><!--/header_top-->
@@ -44,7 +50,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="images/home/logo.png" alt="" width="138" height="57" /></a>
+							<a href="index.html"><img src="${pageContext.request.contextPath}/images/home/logo.png" alt="" width="138" height="57" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -76,7 +82,7 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="index.html" class="active">Home</a></li>
-								<li class="dropdown"><a href="#"><div class="fa fa-angle-down">Shop</div></a>
+								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"><jsp:text/></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Products</a></li>
 										<li><a href="checkout.html">Checkout</a></li> 

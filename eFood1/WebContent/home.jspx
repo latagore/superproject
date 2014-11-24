@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Checkout | E-Shopper</title>
+    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet"/>
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet"/>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-products-->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="#">Meat</a></h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="#">Cheese</a></h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="#">Ice Cream</a></h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="#">Cereal</a></h4>
+								</div>
+							</div>
+						</div><!--/category-products-->
+					
+						<div class="brands_products"><!--brands_products--></div><!--/brands_products-->
+						
+						<div class="shipping text-center"><!--shipping-->
+							<img src="${pageContext.request.contextPath}/images/home/shipping.jpg" alt="" />
+						</div><!--/shipping-->
+					
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						<h2 class="title text-center">Features Items</h2>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+										<div class="productinfo text-center">
+											<img src="${pageContext.request.contextPath}/images/home/f_food1.jpg" alt="" />
+											<h2>$6.49/lb</h2>
+											<p>T6 Sirloin Meat</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="${pageContext.request.contextPath}/images/home/f_food2.jpg" alt="" />
+										<h2>$6.72/lb</h2>
+										<p>R3 Breast Meat</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text/></i>Add to cart</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="${pageContext.request.contextPath}/images/home/f_food3.jpg" alt="" />
+										<h2>$4.3/ea</h2>
+										<p>Brownie Ice Cream with Strawberry</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="${pageContext.request.contextPath}/images/home/f_food4.jpg" alt="" />
+										<h2>$4.26/ea</h2>
+										<p>Semi-Cheddar Cheese by JC</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+									</div>
+									<img src="${pageContext.request.contextPath}/images/home/new.png" class="new" alt="" />
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="${pageContext.request.contextPath}/images/home/f_food5.jpg" alt="" />
+										<h2>$1.42/ea</h2>
+										<p>K5 Raisin Cereal</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+									</div>
+									<img src="${pageContext.request.contextPath}/images/home/sale.png" class="new" alt="" />
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="${pageContext.request.contextPath}/images/home/f_food6.jpg" alt="" />
+										<h2>$6.12/box</h2>
+										<p>E8 Nuts Ice cream</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div><!--features_items-->
+					
+					
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+</jsp:root>
