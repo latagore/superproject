@@ -10,7 +10,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import model.items;
+import model.bean.items;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 

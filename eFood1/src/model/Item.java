@@ -3,6 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.List;
 
+import model.bean.items;
 import model.dao.ItemDAO;
 
 public class Item {

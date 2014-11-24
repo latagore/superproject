@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Category;
 import model.Item;
-import model.items;
+import model.bean.items;
 
 /**
  * Servlet implementation class CategoryController
