@@ -3,11 +3,13 @@ package model;
 import java.sql.SQLException;
 import java.util.List;
 
+import model.dao.CategoryDAO;
+
 /**
  * Model for interacting with the categories in the store.
  */
 public class Category {
-	CategoryDAO dao;
+	private CategoryDAO dao;
 	
 	public Category() throws SQLException{
 		dao = new CategoryDAO();
