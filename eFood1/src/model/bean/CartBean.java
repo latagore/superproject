@@ -19,5 +19,26 @@ public class CartBean {
 	public Map<ItemBean, Integer> getMap(){
 		return c;
 	}
+	/**
+	 * Convenience method to get the total price for an item multiplied by its quantity
+	 * @param i the item
+	 * @return the item total
+	 */
+	public double getItemTotal(ItemBean i){
+		return c.get(i) * i.getPrice(); 
+	}
+	/**
+	 * Convenience method to get the subtotal of the cart
+	 * @return the subtotal
+	 */
+	public double getSubTotal(){
+		double subTotal = 0;
+		for (ItemBean i : c.keySet()){
+			double itemTotal = i.price * c.get(i);
+			subTotal += itemTotal;
+		}
+		return subTotal;
+	}
+	
 	
 }

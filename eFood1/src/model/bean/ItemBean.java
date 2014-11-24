@@ -4,6 +4,11 @@ public class ItemBean {
 	String id;
 	String name;
 	double price;
+	
+	public ItemBean(){
+		
+	}
+	
 	public ItemBean(String id, String name, double price) {
 		super();
 		this.id = id;

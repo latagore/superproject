@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import model.bean.CartBean;
@@ -12,14 +13,38 @@ import model.bean.ItemBean;
  */
 public class Cart {
 	
+	// FIXME replace with web.xml parameters
+	public static final double HST_RATE = 0.13;
+	private static final double FREE_SHIPPING_CUTOFF = 100.0d;
+	private static final double DEFAULT_SHIPPING_COST = 5.0d;
+	
 	/**
-	 * Validates the given item quantities in the cart
+	 * Validates the given item quantities in the cart and returns items with non-zero quantity
 	 * @param itemQuantity the item quantities
 	 * @throws InvalidInputException when a item 
 	 */
 	public Map<String, String> process(Map<String, String> itemQuantity) throws InvalidInputException {
-		// TODO Auto-generated method stub
-		return itemQuantity;
+		// TODO code review needed
+		
+		Map<String, String> results = new HashMap<String,String>();
+		for (String itemNumber : itemQuantity.keySet()){
+			String quantity = itemQuantity.get(itemNumber);
+			try {
+				int q = Integer.parseInt(quantity);
+				if (q > 0) {
+					results.put(itemNumber, quantity);
+				} else if (q < 0) {
+					throw new InvalidInputException("Quantity '" + quantity + 
+							"' for item number '" + itemNumber + "' is negative. "
+							+ "Please enter a positive whole number for quantity.");
+				}
+			} catch (NumberFormatException e){
+				throw new InvalidInputException("Quantity '" + quantity + 
+						"' for item number '" + itemNumber + "' is not a whole number."
+						+ "Please enter a positive whole number for quantity.");
+			}
+		}
+		return results;
 	}
 	
 	public CartBean createCart(Map<String,String> itemQuantities, Item im) throws SQLException, NumberFormatException{
@@ -31,5 +56,16 @@ public class Cart {
 		}
 		return c;
 	}
+	
+	public double getTax(CartBean cart){
+		return cart.getSubTotal() * HST_RATE;
+	}
+	
+	public double getShipping(CartBean cart){
+		return cart.getSubTotal() > FREE_SHIPPING_CUTOFF ? 0 : DEFAULT_SHIPPING_COST;  
+	}
 
+	public double getGrandTotal(CartBean cart){
+		return cart.getSubTotal() + getTax(cart) + getShipping(cart);
+	}
 }

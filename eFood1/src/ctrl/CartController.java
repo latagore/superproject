@@ -66,27 +66,41 @@ public class CartController extends HttpServlet {
 		}
 		
 		try {
-			
 			// get all the cart related attributes
 			HttpSession session = request.getSession();
 			List<String> attrs = Collections.list(session.getAttributeNames());
-			Map<String, String> results = new HashMap<String, String>();
+			Map<String, String> itemQuantity = new HashMap<String, String>();
 			for (String attr : attrs){
 				if (attr.startsWith("quantity_")){
-					results.put(attr.split("_")[1], (String) session.getAttribute(attr));
+					itemQuantity.put(attr.split("_")[1], (String) session.getAttribute(attr));
 				}
 			}
 			
-			Cart cm = (Cart) this.getServletContext().getAttribute("cart");
-			Item im = (Item) this.getServletContext().getAttribute("item");
-			CartBean c = cm.createCart(results, im);
-			
-			request.setAttribute("cart", c);
-			request.getRequestDispatcher("/cart.jspx")// FIXME should be under web-inf
-					.forward(request, response);
+			goToCartJSP(request, response, itemQuantity);
 		} catch (SQLException e) {
 			throw new ServletException(e);
 		}
+	}
+
+	private void goToCartJSP(HttpServletRequest request,
+			HttpServletResponse response, Map<String, String> itemQuantity)
+			throws SQLException, ServletException, IOException {
+		Cart cm = (Cart) this.getServletContext().getAttribute("cart");
+		Item im = (Item) this.getServletContext().getAttribute("item");
+		CartBean c = cm.createCart(itemQuantity, im);
+		
+		double subTotal = c.getSubTotal();
+		double tax = cm.getTax(c);
+		double shipping = cm.getShipping(c);
+		double grandTotal = cm.getGrandTotal(c);
+		
+		request.setAttribute("cart", c);
+		request.setAttribute("subTotal", subTotal);
+		request.setAttribute("tax", tax);
+		request.setAttribute("shipping", shipping);
+		request.setAttribute("grandTotal", grandTotal);
+		request.getRequestDispatcher("/cart.jspx")// FIXME should be under web-inf
+				.forward(request, response);
 	}
 
 	/**
