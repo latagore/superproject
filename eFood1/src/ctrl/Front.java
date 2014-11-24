@@ -1,6 +1,7 @@
 package ctrl;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -33,7 +34,9 @@ public class Front extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		// initialize the model objects
-		Category category = new Category();
+		Category category;
+		try {
+			category = new Category();
 		Item item = new Item();
 		Cart cart = new Cart();
 		Login login = new Login();
@@ -44,6 +47,9 @@ public class Front extends HttpServlet {
 		sc.setAttribute("item", item);
 		sc.setAttribute("cart", cart);
 		sc.setAttribute("login", login);
+		} catch (SQLException e) {
+			throw new ServletException("failed to initialize models", e);
+		}
 	}
 
 	/**
