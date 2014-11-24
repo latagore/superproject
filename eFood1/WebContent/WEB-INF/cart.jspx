@@ -13,32 +13,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Cart | E-Shopper</title>
+	<link href="css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
 	<link href="css/main.css" rel="StyleSheet" type="text/css" /> 
+	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-				<p>Review Payment</p>
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Cart Sub Total <span>$59</span></li>
-							<li>PST <span>$2</span></li>
-							<li>GST <span>$2</span></li>
-							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>$63</span></li>
-						</ul>
-							<a class="btn btn-default update" href="">Update</a>
-							<a class="btn btn-default check_out" href="">Check Out</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section><!--/#do_action-->
+	<p>aa</p>
 </body>
 </html>
 </jsp:root>

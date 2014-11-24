@@ -13,6 +13,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>Home | Food R Us</title>
+    <link href="css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
 	<link href="css/main.css" rel="StyleSheet" type="text/css" /> 
 	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="images/ico/favicon.ico"/>
