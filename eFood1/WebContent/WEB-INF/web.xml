@@ -9,6 +9,14 @@
     <servlet-name>Cart</servlet-name>
     <servlet-class>ctrl.CartController</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>HomePage</servlet-name>
+    <servlet-class>ctrl.HomePageController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>ctrl.LoginController</servlet-class>
+  </servlet>
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Protected Context</web-resource-name>

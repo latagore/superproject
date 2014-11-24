@@ -1,16 +1,24 @@
 package ctrl;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Cart;
+import model.Category;
+import model.Item;
+import model.Login;
+
 /**
  * Servlet implementation class Front
  */
-@WebServlet("/1")
+@WebServlet("/*")
 public class Front extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -21,6 +29,28 @@ public class Front extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		// initialize the model objects
+		Category category;
+		try {
+			category = new Category();
+		Item item = new Item();
+		Cart cart = new Cart();
+		Login login = new Login();
+		
+		// save them to the application scope
+		ServletContext sc = this.getServletContext();
+		sc.setAttribute("category", category);
+		sc.setAttribute("item", item);
+		sc.setAttribute("cart", cart);
+		sc.setAttribute("login", login);
+		} catch (SQLException e) {
+			throw new ServletException("failed to initialize models", e);
+		}
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +59,9 @@ public class Front extends HttpServlet {
 		//response.getWriter().print(request.getPathInfo());
 		String path = request.getPathInfo();
 		if (path.equals("/")){
-			// redirect to home page
+			// redirect to home page controller
+			this.getServletContext().getNamedDispatcher("HomePage")
+				.forward(request, response);
 		} else if (path.startsWith("/category/")){
 			// redirect to category controller
 			this.getServletContext().getNamedDispatcher("Category")
@@ -38,10 +70,14 @@ public class Front extends HttpServlet {
 			// redirect to cart controller
 			this.getServletContext().getNamedDispatcher("Cart")
 					.forward(request, response);
+		} else if (path.matches("/login(/)?")){
+			// redirect to login controller
+			this.getServletContext().getNamedDispatcher("Login")
+					.forward(request, response);
 		} else if (path.matches("/checkout(/)?")){
-			// redirect to checkout controller
+			// TODO redirect to checkout controller
 		} else if (path.startsWith("/addItem")){
-			// redirect to add item controller
+			// TODO redirect to add item controller
 		} else {
 			// TODO redirect to 404?
 		}
