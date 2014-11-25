@@ -20,92 +20,94 @@
 	<link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<section id="cart_items">
-		<div class="container">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-					<li><a href="#">Home</a></li>
-					<li class="active">Shopping Cart</li>
-				</ol>
+	<form>
+		<section id="cart_items">
+			<div class="container">
+				<div class="breadcrumbs">
+					<ol class="breadcrumb">
+						<li><a href="#">Home</a></li>
+						<li class="active">Shopping Cart</li>
+					</ol>
+				</div>
+				<div class="table-responsive cart_info">
+					<table class="table table-condensed">
+						<thead>
+							<tr class="cart_menu">
+								<td class="itemID">ID</td>
+								<td class="description">Item</td>
+								<td class="price">Price</td>
+								<td class="quantity">Quantity</td>
+								<td class="total">Total</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${cart.getMap().keySet() }" var="item">
+							<tr>
+								<td class="cart_item_ID">
+									<p>${item.id }</p>
+								</td>
+								<td class="cart_description">
+									<h4>
+										${item.name }
+									</h4>
+								</td>
+								<td class="cart_price">
+									<p><f:formatNumber type="currency">${item.price }</f:formatNumber></p>
+								</td>
+								<td class="cart_quantity">
+									<div class="cart_quantity_button">
+										<a class="cart_quantity_up" href=""> + </a> <input
+											class="cart_quantity_input" type="text" name="quantity_${item.id }"
+											value="${cart.getMap().get(item) }" autocomplete="off" size="2" /> <a
+											class="cart_quantity_down" href=""> - </a>
+									</div>
+								</td>
+								<td class="cart_total">
+									<p class="cart_total_price"><f:formatNumber type="currency">${item.price * cart.getMap().get(item)}</f:formatNumber></p>
+								</td>
+								<td class="cart_delete">
+									<input type="submit" class="cart_quantity_delete" name="removeItem" value="${item.id }"/>
+								</td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="itemID">ID</td>
-							<td class="description">Item</td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${cart.getMap().keySet() }" var="item">
-						<tr>
-							<td class="cart_item_ID">
-								<p>${item.id }</p>
-							</td>
-							<td class="cart_description">
-								<h4>
-									${item.name }
-								</h4>
-							</td>
-							<td class="cart_price">
-								<p><f:formatNumber type="currency">${item.price }</f:formatNumber></p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a> <input
-										class="cart_quantity_input" type="text" name="quantity"
-										value="${cart.getMap().get(item) }" autocomplete="off" size="2" /> <a
-										class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price"><f:formatNumber type="currency">${item.price * cart.getMap().get(item)}</f:formatNumber></p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</section> <!--/#cart_items-->
-	<section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-				<p>Review Payment</p>
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>
-								Cart Sub Total 
-								<span><f:formatNumber type="currency">${subTotal }</f:formatNumber></span>
-							</li>
-							<li>Taxes
-								<span><f:formatNumber type="currency">${tax }</f:formatNumber></span>
-							</li>
-							<li>Shipping Cost 
-								<span><f:formatNumber type="currency">${shipping }</f:formatNumber></span>
-							</li>
-							<li>Total
-								<span><f:formatNumber type="currency">${grandTotal }</f:formatNumber></span>
-							</li>
-						</ul>
-							<input type="submit" name="updateItem" value="Update" class="btn btn-default update" href="" />
-							<a class="btn btn-default check_out" href="">Check Out</a>
+		</section> <!--/#cart_items-->
+		<section id="do_action">
+			<div class="container">
+				<div class="heading">
+					<h3>What would you like to do next?</h3>
+					<p>Review Payment</p>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="total_area">
+							<ul>
+								<li>
+									Cart Sub Total 
+									<span><f:formatNumber type="currency">${subTotal }</f:formatNumber></span>
+								</li>
+								<li>Taxes
+									<span><f:formatNumber type="currency">${tax }</f:formatNumber></span>
+								</li>
+								<li>Shipping Cost 
+									<span><f:formatNumber type="currency">${shipping }</f:formatNumber></span>
+								</li>
+								<li>Total
+									<span><f:formatNumber type="currency">${grandTotal }</f:formatNumber></span>
+								</li>
+							</ul>
+								<input type="submit" name="updateItems" value="Update" class="btn btn-default update" href="" />
+								<a class="btn btn-default check_out" href="">Check Out</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section><!--/#do_action-->
+		</section><!--/#do_action-->
+	</form>
 </body>
 </html>
 </jsp:root>

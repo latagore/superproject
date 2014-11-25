@@ -20,6 +20,7 @@ public class Cart {
 	private double freeShippingCutoff;
 	private double defaultShippingCost;
 	
+	@SuppressWarnings("unused")
 	private Cart() {}
 	
 	// initialize the model 
