@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import model.bean.CartBean;
 import model.bean.ItemBean;
 
@@ -15,9 +17,16 @@ public class Cart {
 	
 	// FIXME replace with web.xml parameters
 	public static final double HST_RATE = 0.13;
-	private static final double FREE_SHIPPING_CUTOFF = 100.0d;
-	private static final double DEFAULT_SHIPPING_COST = 5.0d;
+	private double freeShippingCutoff;
+	private double defaultShippingCost;
 	
+	private Cart() {}
+	
+	// initialize the model 
+	public Cart(double freeShippingCutoff, double defaultShippingCost) {
+		this.freeShippingCutoff = freeShippingCutoff;
+		this.defaultShippingCost = defaultShippingCost;
+	}
 	/**
 	 * Validates the given item quantities in the cart and returns items with non-zero quantity
 	 * @param itemQuantity the item quantities
@@ -62,7 +71,12 @@ public class Cart {
 	}
 	
 	public double getShipping(CartBean cart){
-		return cart.getSubTotal() > FREE_SHIPPING_CUTOFF ? 0 : DEFAULT_SHIPPING_COST;  
+		 
+		if (cart.getSubTotal() > freeShippingCutoff || cart.getMap().size() == 0){
+			return 0;
+		} else {
+			return defaultShippingCost;
+		}  
 	}
 
 	public double getGrandTotal(CartBean cart){

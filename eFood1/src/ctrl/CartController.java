@@ -39,13 +39,17 @@ public class CartController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	// Input
+	// (updateItems)? : true 
+	//     (quantity_<item_number>)+ : <quantity>
+	// removeItem : <item_number>
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("updateItems") != null){
 			// get all the items in the request
 			
 			Map<String,String[]> paramMap = request.getParameterMap();
 			
-			Map<String,String> itemQuantity = getItemsFromParams(paramMap);
+			Map<String,String> itemQuantity = getItemQuantitiesFromParams(paramMap);
 			Map<String,String> validItemQuantity;
 			
 			// give to the model to validate
@@ -63,44 +67,14 @@ public class CartController extends HttpServlet {
 			
 			updateSession(request, validItemQuantity);
 						
-		}
+		} else if (request.getParameter("removeItem") != null) {
+			String itemNumber = request.getParameter("removeItem");
+			HttpSession s = request.getSession();
+			s.removeAttribute("quantity_" + itemNumber);
+		} 
 		
-		try {
-			// get all the cart related attributes
-			HttpSession session = request.getSession();
-			List<String> attrs = Collections.list(session.getAttributeNames());
-			Map<String, String> itemQuantity = new HashMap<String, String>();
-			for (String attr : attrs){
-				if (attr.startsWith("quantity_")){
-					itemQuantity.put(attr.split("_")[1], (String) session.getAttribute(attr));
-				}
-			}
-			
-			goToCartJSP(request, response, itemQuantity);
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		}
-	}
-
-	private void goToCartJSP(HttpServletRequest request,
-			HttpServletResponse response, Map<String, String> itemQuantity)
-			throws SQLException, ServletException, IOException {
-		Cart cm = (Cart) this.getServletContext().getAttribute("cart");
-		Item im = (Item) this.getServletContext().getAttribute("item");
-		CartBean c = cm.createCart(itemQuantity, im);
+		goToCartJSP(request, response);
 		
-		double subTotal = c.getSubTotal();
-		double tax = cm.getTax(c);
-		double shipping = cm.getShipping(c);
-		double grandTotal = cm.getGrandTotal(c);
-		
-		request.setAttribute("cart", c);
-		request.setAttribute("subTotal", subTotal);
-		request.setAttribute("tax", tax);
-		request.setAttribute("shipping", shipping);
-		request.setAttribute("grandTotal", grandTotal);
-		request.getRequestDispatcher("/cart.jspx")// FIXME should be under web-inf
-				.forward(request, response);
 	}
 
 	/**
@@ -112,6 +86,47 @@ public class CartController extends HttpServlet {
 		doGet(request, response);
 	}
 
+	/**
+	 * Convenience method for redirecting to the cart jsp. 
+	 * Gathers the necessary information to redirect to the cart jsp
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void goToCartJSP(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		try {
+			// get all the cart related attributes
+			HttpSession session = request.getSession();
+			Map<String, String> itemQuantity = getItemQuantitiesFromSession(session);
+	
+			Cart cm = (Cart) this.getServletContext().getAttribute("cart");
+			Item im = (Item) this.getServletContext().getAttribute("item");
+			CartBean c = cm.createCart(itemQuantity, im);
+	
+			double subTotal = c.getSubTotal();
+			double tax = cm.getTax(c);
+			double shipping = cm.getShipping(c);
+			double grandTotal = cm.getGrandTotal(c);
+	
+			request.setAttribute("cart", c);
+			request.setAttribute("subTotal", subTotal);
+			request.setAttribute("tax", tax);
+			request.setAttribute("shipping", shipping);
+			request.setAttribute("grandTotal", grandTotal);
+			request.getRequestDispatcher("/cart.jspx")// FIXME should be under web-inf
+					.forward(request, response);
+		} catch (SQLException e) {
+			throw new ServletException(e);
+		}
+	}
+
+	/**
+	 * Convenience method for updating the session with new item quantities
+	 * @param request
+	 * @param newItemQuantities
+	 */
 	private void updateSession(HttpServletRequest request,
 			Map<String, String> newItemQuantities) {
 		// modify the cart stored in the session
@@ -134,7 +149,12 @@ public class CartController extends HttpServlet {
 		}
 	}
 	
-	private Map<String, String> getItemsFromParams(Map<String, String[]> paramMap){
+	/**
+	 * Convenience method for getting item quantities from parameter map
+	 * @param paramMap
+	 * @return
+	 */
+	private Map<String, String> getItemQuantitiesFromParams(Map<String, String[]> paramMap){
 		Map<String, String> itemQuantity = new HashMap<String, String>();
 		for (String s : paramMap.keySet()){
 			if (s.startsWith("quantity_")){
@@ -145,6 +165,22 @@ public class CartController extends HttpServlet {
 				// there should only be one
 				String quantity = paramMap.get(s)[0];
 				itemQuantity.put(itemNumber, quantity);
+			}
+		}
+		return itemQuantity;
+	}
+
+	/** 
+	 * Convenience method for getting item quantities from http session
+	 * @param session
+	 * @return
+	 */
+	private Map<String, String> getItemQuantitiesFromSession(HttpSession session) {
+		List<String> attrs = Collections.list(session.getAttributeNames());
+		Map<String, String> itemQuantity = new HashMap<String, String>();
+		for (String attr : attrs){
+			if (attr.startsWith("quantity_")){
+				itemQuantity.put(attr.split("_")[1], (String) session.getAttribute(attr));
 			}
 		}
 		return itemQuantity;

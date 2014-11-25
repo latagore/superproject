@@ -99,7 +99,7 @@
 								<span><f:formatNumber type="currency">${grandTotal }</f:formatNumber></span>
 							</li>
 						</ul>
-							<a class="btn btn-default update" href="">Update</a>
+							<input type="submit" name="updateItem" value="Update" class="btn btn-default update" href="" />
 							<a class="btn btn-default check_out" href="">Check Out</a>
 					</div>
 				</div>
