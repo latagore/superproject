@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Category;
 import model.Item;
-import model.bean.items;
+import model.bean.ItemBean;
 
 /**
  * Servlet implementation class CategoryController
@@ -44,7 +44,7 @@ public class CategoryController extends HttpServlet {
 			Category cm = (Category) this.getServletContext().getAttribute("category");
 			Item im = (Item) this.getServletContext().getAttribute("item");
 			List<String> allCategories = cm.getCategories();
-			List<items> items;
+			List<ItemBean> items;
 
 			boolean isAllItemsSelected = true;
 			// if path starts with /category, specific category is selected

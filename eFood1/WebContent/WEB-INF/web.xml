@@ -17,6 +17,16 @@
     <servlet-name>Login</servlet-name>
     <servlet-class>ctrl.LoginController</servlet-class>
   </servlet>
+  
+  <context-param>
+  	<param-name>freeShippingCutoff</param-name>
+  	<param-value>100.00</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>defaultShippingCost</param-name>
+  	<param-value>5.00</param-value>
+  </context-param>
+  
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Protected Context</web-resource-name>

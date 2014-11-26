@@ -34,22 +34,30 @@ public class Front extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		// initialize the model objects
-		Category category;
 		try {
-			category = new Category();
-		Item item = new Item();
-		Cart cart = new Cart();
-		Login login = new Login();
-		
-		// save them to the application scope
-		ServletContext sc = this.getServletContext();
-		sc.setAttribute("category", category);
-		sc.setAttribute("item", item);
-		sc.setAttribute("cart", cart);
-		sc.setAttribute("login", login);
+			ServletContext sc = this.getServletContext();
+			double freeShippingCutoff;
+			double defaultShippingCost;
+			try {
+				freeShippingCutoff = Double.parseDouble(sc.getInitParameter("freeShippingCutoff"));
+				defaultShippingCost = Double.parseDouble(sc.getInitParameter("defaultShippingCost"));
+			} catch (NumberFormatException e){
+				throw new ServletException("servlet is not configured properly", e);
+			}
+			
+			Category category = new Category();
+			Item item = new Item();
+			Cart cart = new Cart(freeShippingCutoff, defaultShippingCost);
+			Login login = new Login();
+
+			// save them to the application scope
+			sc.setAttribute("category", category);
+			sc.setAttribute("item", item);
+			sc.setAttribute("cart", cart);
+			sc.setAttribute("login", login);
 		} catch (SQLException e) {
 			throw new ServletException("failed to initialize models", e);
-		}
+		} 
 	}
 
 	/**
@@ -79,7 +87,7 @@ public class Front extends HttpServlet {
 		} else if (path.startsWith("/addItem")){
 			// TODO redirect to add item controller
 		} else {
-			// TODO redirect to 404?
+			// TODO 404
 		}
 	}
 

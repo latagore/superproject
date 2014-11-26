@@ -1,16 +1,19 @@
 package model.bean;
 
-public class items {
-	String name;
-	int quantity;
-	double price;
+public class ItemBean {
 	String id;
+	String name;
+	double price;
 	
-	public items(String name, int quantity, double price, String id){
-		this.name = name;
-		this.quantity = quantity;
-		this.price = price;
+	public ItemBean(){
+		
+	}
+	
+	public ItemBean(String id, String name, double price) {
+		super();
 		this.id = id;
+		this.name = name;
+		this.price = price;
 	}
 	public String getId() {
 		return id;
@@ -24,16 +27,10 @@ public class items {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 	public double getPrice() {
 		return price;
 	}
 	public void setPrice(double price) {
 		this.price = price;
-	}
+	}	
 }

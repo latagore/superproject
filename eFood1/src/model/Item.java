@@ -3,7 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.bean.items;
+import model.bean.ItemBean;
 import model.dao.ItemDAO;
 
 public class Item {
@@ -14,12 +14,16 @@ public class Item {
 		dao = new ItemDAO();
 	}
 	
-	public List<items> getItemsByCategoryName(String categoryName) throws SQLException {
+	public List<ItemBean> getItemsByCategoryName(String categoryName) throws SQLException {
 		return dao.getItemsByCategoryName(categoryName);
 	}
 
-	public List<items> getAllItems() throws SQLException {
+	public List<ItemBean> getAllItems() throws SQLException {
 		return dao.getAllItems();
+	}
+
+	public model.bean.ItemBean getItem(String itemNumber) throws SQLException {
+		return dao.getItem(itemNumber);
 	}
 
 }
