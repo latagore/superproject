@@ -8,17 +8,22 @@
 		omit-xml-declaration="true" />
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Cart | E-Shopper</title>
-	<link href="css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
-	<link href="css/main.css" rel="StyleSheet" type="text/css" /> 
-	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<title>Insert title here</title>
 </head>
 <body>
-	<p>aa</p>
+	<div id="header">
+		<jsp:include page="header.jspx">
+		</jsp:include>
+	</div>
+	<div id="category">
+		<jsp:include page="item.jspx">
+		</jsp:include>
+	</div>
+	<div id="footer">
+		<jsp:include page="footer.jspx">
+		<jsp:param name="myVar" value="${instanceVar}"/>
+		</jsp:include>
+	</div>
 </body>
 </html>
 </jsp:root>

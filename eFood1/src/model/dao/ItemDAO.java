@@ -40,12 +40,12 @@ public class ItemDAO {
 		List<items> l = new ArrayList<items>();
 		
 		while (r.next()){
-			int id = r.getInt("number");
+			String id = r.getString("number");
 			String name = r.getString("name");
 			Double price = r.getDouble("price");
 			int qty = r.getInt("qty");
 			
-			l.add(new items(name, id, price, qty));
+			l.add(new items(name, qty, price, id));
 		}
 		
 		r.close();
@@ -63,12 +63,12 @@ public class ItemDAO {
 		List<items> l = new ArrayList<items>();
 		
 		while (r.next()){
-			int id = r.getInt("number");
+			String id = r.getString("number");
 			String name = r.getString("name");
 			Double price = r.getDouble("price");
 			int qty = r.getInt("qty");
 			
-			l.add(new items(name, id, price, qty));
+			l.add(new items(name, qty, price, id));
 		}
 		
 		r.close();

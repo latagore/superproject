@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+		  xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<jsp:directive.page contentType="text/html; charset=UTF-8" 
 		pageEncoding="UTF-8" session="false"/>
 	<jsp:output doctype-root-element="html"
@@ -25,34 +26,17 @@
 					<div class="left-sidebar">
 						<h2>Category</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-products-->
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Meat</a></h4>
+							<c:forEach var="cat" items="${categories}">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title"><a href="${pageContext.request.contextPath}/Front/category/${cat}">${cat}</a></h4>
+									</div>
 								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Cheese</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Ice Cream</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Cereal</a></h4>
-								</div>
-							</div>
+							</c:forEach>
 						</div><!--/category-products-->
-					
-						<div class="brands_products"><!--brands_products--></div><!--/brands_products-->
-						
 						<div class="shipping text-center"><!--shipping-->
 							<img src="${pageContext.request.contextPath}/images/home/shipping.jpg" alt="" />
 						</div><!--/shipping-->
-					
 					</div>
 				</div>
 				

@@ -55,7 +55,7 @@ public class CategoryController extends HttpServlet {
 				// get the information after "/category/" in the path			
 				String categoryName = path.substring(
 						path.substring(1) // removes the first slash
-						.indexOf('/')); // removes everything before the second slash
+						.indexOf('/')+2); // removes everything before the second slash
 
 				// check if category exists
 				if (!cm.hasCategory(categoryName)){
@@ -78,7 +78,7 @@ public class CategoryController extends HttpServlet {
 			request.setAttribute("categories", allCategories);
 			request.setAttribute("items", items);
 			request.setAttribute("isAllItemsSelected", isAllItemsSelected);
-			request.getRequestDispatcher("/WEB-INF/Category.jspx")
+			request.getRequestDispatcher("/category.jspx")
 			.forward(request, response);
 		} catch (SQLException e) {
 			// TODO need a message?

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+		  xmlns:c="http://java.sun.com/jsp/jstl/core">
+<jsp:directive.page import="com.sun.xml.internal.txw2.Document"/>
+	<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Home | Food R Us</title>
+    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="StyleSheet" type="text/css" />
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="StyleSheet" type="text/css" /> 
+	<link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js">;</script>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<div class="panel-group category-products" id="accordian"><!--category-products-->
+							<c:forEach var="cat" items="${categories}">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title"><a href="${pageContext.request.contextPath}/Front/category/${cat}">${cat}</a></h4>
+									</div>
+								</div>
+							</c:forEach>
+						</div><!--/category-products-->
+						<div class="shipping text-center"><!--shipping-->
+							<img src="${pageContext.request.contextPath}/images/home/shipping.jpg" alt="" />
+						</div><!--/shipping-->
+						
+					</div>
+				</div>
+				
+				<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						<h2 class="title text-center">Features Items</h2>
+						
+						<div class="table-responsive cart_info">
+							<table class="table table-condensed">
+								<thead>
+									<tr class="cart_menu">
+										<td class="itemID">ID</td>
+										<td class="description">Item</td>
+										<td class="price">Price</td>
+										<td class="quantity">Quantity</td>
+										<td></td>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="item" items="${items}">
+										<tr>
+											<td class="cart_item_ID">
+												<p id="item_ID" value="${item.id}">${item.id}</p>
+											</td>
+											<td class="cart_description">
+												<h4>${item.name }</h4>
+											</td>
+											<td class="cart_price">
+											  <p>${item.price }</p>
+											</td>
+											<td class="item_quantity">
+												<div class="item_quantity_button">
+													<button class="item_quantity_up" onclick="increaseQuantity(this)" value="${item.id}"> + </button>
+													<input class="item_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2" id="${item.id}_item_quantity"/>
+													<button class="item_quantity_down" onclick="decreaseQuantity(this)" value="${item.id}"> - </button>
+												</div>
+											</td>
+											<td class="cart_add">
+												<form>
+												<button class="btn btn-default add-to-cart" id="btnCart" onclick="submit();"><i class="fa fa-shopping-cart"></i>Add to cart</button >
+												</form>
+											</td>	
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+						
+						<ul class="pagination">
+							<li class="active"><a href="">1</a></li>
+							<li><a href="">2</a></li>
+							<li><a href="">3</a></li>
+							<li><a href="">&#xbb;</a></li>
+						</ul>
+					</div><!--features_items-->
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+</jsp:root>
