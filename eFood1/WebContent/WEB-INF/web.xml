@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-  <display-name>eFood1</display-name>
+  <display-name>eFood</display-name>
   <servlet>
     <servlet-name>Category</servlet-name>
     <servlet-class>ctrl.CategoryController</servlet-class>
@@ -10,6 +10,10 @@
     <servlet-class>ctrl.CartController</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>Checkout</servlet-name>
+    <servlet-class>ctrl.CheckOutController</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>HomePage</servlet-name>
     <servlet-class>ctrl.HomePageController</servlet-class>
   </servlet>
@@ -17,16 +21,14 @@
     <servlet-name>Login</servlet-name>
     <servlet-class>ctrl.LoginController</servlet-class>
   </servlet>
-  
   <context-param>
-  	<param-name>freeShippingCutoff</param-name>
-  	<param-value>100.00</param-value>
+    <param-name>freeShippingCutoff</param-name>
+    <param-value>100.00</param-value>
   </context-param>
   <context-param>
-  	<param-name>defaultShippingCost</param-name>
-  	<param-value>5.00</param-value>
+    <param-name>defaultShippingCost</param-name>
+    <param-value>5.00</param-value>
   </context-param>
-  
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Protected Context</web-resource-name>

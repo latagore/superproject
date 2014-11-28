@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Category;
+import model.bean.CategoryBean;
 
 /**
  * Servlet implementation class HomePageController
@@ -33,9 +34,10 @@ public class HomePageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// get all the categories and serve the jsp
+			request.setAttribute("target", "/home.jspx");
 			String jsp = "/index.jspx";
 			Category c = (Category) this.getServletContext().getAttribute("category");
-			List<String> l;
+			List<CategoryBean> l;
 			l = c.getCategories();
 
 			request.setAttribute("categories", l);

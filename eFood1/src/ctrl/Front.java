@@ -18,7 +18,7 @@ import model.Login;
 /**
  * Servlet implementation class Front
  */
-@WebServlet("/Front/*")
+@WebServlet("/eFoods/*")
 public class Front extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -64,30 +64,37 @@ public class Front extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().print(request.getPathInfo());
 		String path = request.getPathInfo();
-		if (path.equals("/")){
+		String itemID = request.getParameter("itemID");
+		request.setAttribute("itemadded", false);
+		if (itemID != null){
+			int quantity = Integer.parseInt(request.getParameter(itemID+"_itemquantity"));
+			Cart cart = (Cart) this.getServletContext().getAttribute("cart");
+			cart.addItem(itemID, quantity);
+			request.setAttribute("itemadded", true);
+			System.out.println("item added");
+		}
+		if (path != null & path.equals("/")){
 			// redirect to home page controller
 			this.getServletContext().getNamedDispatcher("HomePage")
 				.forward(request, response);
-		} else if (path.startsWith("/category/")){
+		} else if (path != null & path.startsWith("/category/")){
 			// redirect to category controller
 			this.getServletContext().getNamedDispatcher("Category")
 					.forward(request, response);
-		} else if (path.matches("/cart(/)?")){
+		} else if (path != null & path.matches("/cart(/)?")){
 			// redirect to cart controller
 			this.getServletContext().getNamedDispatcher("Cart")
 					.forward(request, response);
-		} else if (path.matches("/login(/)?")){
+		} else if (path != null & path.matches("/login(/)?")){
 			// redirect to login controller
 			this.getServletContext().getNamedDispatcher("Login")
 					.forward(request, response);
-		} else if (path.matches("/checkout(/)?")){
-			// TODO redirect to checkout controller
-		} else if (path.startsWith("/addItem")){
-			// TODO redirect to add item controller
+		} else if (path != null & path.matches("/checkout(/)?")){
+			this.getServletContext().getNamedDispatcher("Checkout")
+			.forward(request, response);
 		} else {
-			// TODO 404
+			request.getRequestDispatcher("/index.jspx").forward(request, response);
 		}
 	}
 

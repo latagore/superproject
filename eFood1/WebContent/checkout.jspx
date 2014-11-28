@@ -213,16 +213,10 @@
 				</table>
 			</div>
 			<div class="payment-options">
-					<span>
-						<label><input type="checkbox"> Direct Bank Transfer</input></label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Check Payment</input></label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Paypal</input></label>
-					</span>
-				</div>
+				<form name="submit">
+					<input type="submit" name="checkout" value="Checkout" class="btn btn-default update" />
+				</form>
+			</div>
 		</div>
 	</section> <!--/#cart_items-->
 </body>

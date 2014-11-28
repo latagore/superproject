@@ -14,8 +14,8 @@ public class Item {
 		dao = new ItemDAO();
 	}
 	
-	public List<ItemBean> getItemsByCategoryName(String categoryName) throws SQLException {
-		return dao.getItemsByCategoryName(categoryName);
+	public List<ItemBean> getItemsByCategoryName(int categoryID) throws SQLException {
+		return dao.getItemsByCategoryName(categoryID);
 	}
 
 	public List<ItemBean> getAllItems() throws SQLException {

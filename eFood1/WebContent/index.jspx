@@ -15,13 +15,12 @@
 		<jsp:include page="header.jspx">
 		</jsp:include>
 	</div>
-	<div id="home">
-		<jsp:include page="home.jspx">
+	<div id="body">
+		<jsp:include page="${target}">
 		</jsp:include>
 	</div>
 	<div id="footer">
 		<jsp:include page="footer.jspx">
-		<jsp:param name="myVar" value="${instanceVar}"/>
 		</jsp:include>
 	</div>
 	

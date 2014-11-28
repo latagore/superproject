@@ -27,15 +27,11 @@ public class ItemDAO {
 	}
 
 	
-	public List<ItemBean> getItemsByCategoryName(String categoryName) throws SQLException {
+	public List<ItemBean> getItemsByCategoryName(int categoryID) throws SQLException {
 		Connection con = this.ds.getConnection();
 		PreparedStatement p = con
-				.prepareStatement("select number, name, price from roumani.item where upper(name) like upper(?) order by number");
-		// assume item ends in category name
-		// sanitize name
-		String sanitizedName = categoryName
-				.replace("%", "[%]");
-		p.setString(1, "%" + sanitizedName);
+				.prepareStatement("select number, name, price, unit from roumani.item where catid=? order by number");
+		p.setInt(1, categoryID);
 		ResultSet r = p.executeQuery();
 		List<ItemBean> l = new ArrayList<ItemBean>();
 		
@@ -43,8 +39,8 @@ public class ItemDAO {
 			String id = r.getString("number");
 			String name = r.getString("name");
 			Double price = r.getDouble("price");
-			
-			l.add(new ItemBean(id, name, price));
+			String unit = r.getString("unit");
+			l.add(new ItemBean(id, name, price, unit));
 		}
 		
 		r.close();
@@ -56,7 +52,7 @@ public class ItemDAO {
 	public List<ItemBean> getAllItems() throws SQLException {
 		Connection con = this.ds.getConnection();
 		PreparedStatement p = con
-				.prepareStatement("select number, name, price from roumani.item where upper(name) like upper(?) order by number");
+				.prepareStatement("select number, name, price, unit from roumani.item order by number");
 		
 		ResultSet r = p.executeQuery();
 		List<ItemBean> l = new ArrayList<ItemBean>();
@@ -65,8 +61,8 @@ public class ItemDAO {
 			String id = r.getString("number");
 			String name = r.getString("name");
 			Double price = r.getDouble("price");
-			
-			l.add(new ItemBean(id, name, price));
+			String unit = r.getString("unit");
+			l.add(new ItemBean(id, name, price,unit));
 		}
 		
 		r.close();
@@ -79,7 +75,7 @@ public class ItemDAO {
 	public ItemBean getItem(String itemNumber) throws SQLException{
 		Connection con = this.ds.getConnection();
 		PreparedStatement p = con
-				.prepareStatement("select number, name, price from roumani.item where number like ?");
+				.prepareStatement("select number, name, price, unit from roumani.item where number like ?");
 		p.setString(1, itemNumber);
 		ResultSet r = p.executeQuery();
 		
@@ -87,8 +83,8 @@ public class ItemDAO {
 		String id = r.getString("number");
 		String name = r.getString("name");
 		Double price = r.getDouble("price");
-		
-		ItemBean item = new ItemBean(id, name, price);
+		String unit = r.getString("unit");
+		ItemBean item = new ItemBean(id, name, price, unit);
 		
 		r.close();
 		p.close();

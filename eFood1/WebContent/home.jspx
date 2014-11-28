@@ -29,7 +29,7 @@
 							<c:forEach var="cat" items="${categories}">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<h4 class="panel-title"><a href="${pageContext.request.contextPath}/Front/category/${cat}">${cat}</a></h4>
+										<h4 class="panel-title"><a href="${pageContext.request.contextPath}/eFoods/category/${cat.name}">${cat.name}</a></h4>
 									</div>
 								</div>
 							</c:forEach>

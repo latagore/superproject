@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-		  xmlns:c="http://java.sun.com/jsp/jstl/core">
+		  xmlns:c="http://java.sun.com/jsp/jstl/core"
+		  xmlns:f="http://java.sun.com/jsp/jstl/fmt">
 <jsp:directive.page import="com.sun.xml.internal.txw2.Document"/>
 	<jsp:directive.page contentType="text/html; charset=UTF-8" 
 		pageEncoding="UTF-8" session="false"/>
@@ -26,11 +27,12 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">
+						<h2>Category</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-products-->
 							<c:forEach var="cat" items="${categories}">
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<h4 class="panel-title"><a href="${pageContext.request.contextPath}/Front/category/${cat}">${cat}</a></h4>
+										<h4 class="panel-title"><a href="${pageContext.request.contextPath}/eFoods/category/${cat.name}">${cat.name}</a></h4>
 									</div>
 								</div>
 							</c:forEach>
@@ -45,7 +47,9 @@
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						
+						<c:if test="${itemadded}">
+							<p>Item is added to cart</p>
+						</c:if>
 						<div class="table-responsive cart_info">
 							<table class="table table-condensed">
 								<thead>
@@ -67,7 +71,7 @@
 												<h4>${item.name }</h4>
 											</td>
 											<td class="cart_price">
-											  <p>${item.price }</p>
+											  <f:formatNumber type="currency">${item.price }</f:formatNumber>
 											</td>
 											<td class="item_quantity">
 												<div class="item_quantity_button">
@@ -76,11 +80,13 @@
 													<button class="item_quantity_down" onclick="decreaseQuantity(this)" value="${item.id}"> - </button>
 												</div>
 											</td>
+											<form name="${item.id}_submit">
 											<td class="cart_add">
-												<form>
-												<button class="btn btn-default add-to-cart" id="btnCart" onclick="submit();"><i class="fa fa-shopping-cart"></i>Add to cart</button >
-												</form>
-											</td>	
+												<input type="hidden" name="itemID" value="${item.id}"/>
+												<input type="hidden" name="${item.id}_itemquantity" value="10"/>
+												<button class="btn btn-default add-to-cart" id="${item.id}_btnCart" onclick="getquantity(this)" value="${item.id}"><i class="fa fa-shopping-cart"></i>Add to cart</button >
+											</td>
+											</form>	
 										</tr>
 									</c:forEach>
 								</tbody>

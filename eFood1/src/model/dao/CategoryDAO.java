@@ -10,6 +10,8 @@ import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import model.bean.CategoryBean;
+
 import org.apache.tomcat.jdbc.pool.DataSource;
 
 public class CategoryDAO {
@@ -24,15 +26,17 @@ public class CategoryDAO {
 		}
 	}
 
-	public List<String> getCategories() throws SQLException {
+	public List<CategoryBean> getCategories() throws SQLException {
 		Connection con = this.ds.getConnection();
 		PreparedStatement p = con
-				.prepareStatement("select name from roumani.category");
+				.prepareStatement("select name, id from roumani.category");
 		ResultSet r = p.executeQuery();
-		List<String> l = new ArrayList<String>();
+		List<CategoryBean> l = new ArrayList<CategoryBean>();
 		
 		while (r.next()){
-			l.add(r.getString("name"));
+			String name = r.getString("name");
+			int id = r.getInt("id");
+			l.add(new CategoryBean(name, id));
 		}
 		
 		r.close();
@@ -40,7 +44,24 @@ public class CategoryDAO {
 		con.close();
 		return l;
 	}
-
+	public int getCategoryID(String categoryName) throws SQLException{
+		Connection con = this.ds.getConnection();
+		// do a exact match with ignore case comparison of the category name
+		PreparedStatement p = con
+				.prepareStatement("select id from roumani.category where upper(name) = ?");
+		p.setString(1, categoryName.toUpperCase());
+		ResultSet r = p.executeQuery();
+		int id;
+		
+		r.next();
+		id = r.getInt(1);
+		
+		r.close();
+		p.close();
+		con.close();
+		return id;
+	}
+	
 	public boolean hasCategory(String categoryName) throws SQLException{
 		Connection con = this.ds.getConnection();
 		// do a exact match with ignore case comparison of the category name

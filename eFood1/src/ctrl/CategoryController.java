@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Category;
 import model.Item;
+import model.bean.CategoryBean;
 import model.bean.ItemBean;
 
 /**
@@ -40,10 +41,12 @@ public class CategoryController extends HttpServlet {
 	// boolean isAllCategoriesSelected
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			request.setAttribute("target", "item.jspx");
 			String path = request.getPathInfo();
+			path = path.replace("%20", " ");
 			Category cm = (Category) this.getServletContext().getAttribute("category");
 			Item im = (Item) this.getServletContext().getAttribute("item");
-			List<String> allCategories = cm.getCategories();
+			List<CategoryBean> allCategories = cm.getCategories();
 			List<ItemBean> items;
 
 			boolean isAllItemsSelected = true;
@@ -64,7 +67,8 @@ public class CategoryController extends HttpServlet {
 				}
 
 				// get all the items for this category
-				items = im.getItemsByCategoryName(categoryName);
+				int categoryID = cm.getCategory(categoryName);
+				items = im.getItemsByCategoryName(categoryID);
 				request.setAttribute("selectedCategory", categoryName);
 
 			} else if (path.matches("/allItems(/)?")){
@@ -78,7 +82,7 @@ public class CategoryController extends HttpServlet {
 			request.setAttribute("categories", allCategories);
 			request.setAttribute("items", items);
 			request.setAttribute("isAllItemsSelected", isAllItemsSelected);
-			request.getRequestDispatcher("/category.jspx")
+			request.getRequestDispatcher("/index.jspx")
 			.forward(request, response);
 		} catch (SQLException e) {
 			// TODO need a message?

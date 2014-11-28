@@ -11,7 +11,13 @@ public class CartBean {
 	}
 	
 	public void addToCart(ItemBean i, int quantity){
-		this.c.put(i, quantity);
+		if (c.containsKey(i)){
+			c.put(i, c.get(i) + quantity);
+		}else
+			this.c.put(i, quantity);
+	}
+	public void updateCart(ItemBean i, int quantity){
+		c.put(i, quantity);
 	}
 	public void removefromCart(ItemBean i){
 		this.c.remove(i);
@@ -39,6 +45,20 @@ public class CartBean {
 		}
 		return subTotal;
 	}
-	
-	
+	public boolean isContains(String itemId){
+		for (ItemBean i: c.keySet()){
+			if (i.id.equals(itemId)){
+				return true;
+			}
+		}
+		return false;
+	}
+	public ItemBean getItem(String itemId){
+		for (ItemBean i: c.keySet()){
+			if (i.id.equals(itemId)){
+				return i;
+			}
+		}
+		return null;
+	}
 }
