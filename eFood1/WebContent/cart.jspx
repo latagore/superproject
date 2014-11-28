@@ -44,6 +44,9 @@
 								<td></td>
 							</tr>
 						</thead>
+						<div class="col-md-7" id="suggested_items">
+							&#160;
+						</div>
 						<tbody>
 							<c:forEach items="${itemlist}" var="item">
 							<tr>

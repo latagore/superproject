@@ -14,6 +14,7 @@ import model.Cart;
 import model.Category;
 import model.Item;
 import model.Login;
+import model.admin;
 
 /**
  * Servlet implementation class Front
@@ -35,6 +36,11 @@ public class Front extends HttpServlet {
 		super.init();
 		// initialize the model objects
 		try {
+			admin model = (admin) this.getServletContext().getAttribute("model");
+	    	if (model == null){
+					model = new admin();
+	    	}
+	    	
 			ServletContext sc = this.getServletContext();
 			double freeShippingCutoff;
 			double defaultShippingCost;
@@ -51,6 +57,7 @@ public class Front extends HttpServlet {
 			Login login = new Login();
 
 			// save them to the application scope
+			this.getServletContext().setAttribute("model", model);
 			sc.setAttribute("category", category);
 			sc.setAttribute("item", item);
 			sc.setAttribute("cart", cart);
@@ -93,7 +100,12 @@ public class Front extends HttpServlet {
 		} else if (path != null & path.matches("/checkout(/)?")){
 			this.getServletContext().getNamedDispatcher("Checkout")
 			.forward(request, response);
-		} else {
+		} else if (path != null & path.equals("/order/")){
+			// redirect to order controller
+			this.getServletContext().getNamedDispatcher("Order")
+				.forward(request, response);
+		}
+		else {
 			request.getRequestDispatcher("/index.jspx").forward(request, response);
 		}
 	}

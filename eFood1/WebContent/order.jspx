@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+			xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Orders</title>
+    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/font-awesome.min.css" rel="stylesheet"/>
+	<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet"/>
+</head>
+<body>
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">Home</a></li>
+				  <li class="active">Orders</li>
+				</ol>
+			</div>
+
+			<div class="review-payment">
+				<h2>Orders</h2>
+			</div>
+
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="order">Order</td>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="f" items="${filenames}">
+							<tr>
+							<td>
+								<a href="${pageContext.request.contextPath}/order/${f}.xml">${f}</a>
+							</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+</body>
+</html>
+</jsp:root>

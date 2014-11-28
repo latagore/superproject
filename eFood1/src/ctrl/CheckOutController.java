@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +18,6 @@ import javax.xml.validation.SchemaFactory;
 
 import model.Cart;
 import model.Order;
-import model.bean.ItemBean;
 
 /**
  * Servlet implementation class CheckOutController
@@ -48,16 +46,11 @@ public class CheckOutController extends HttpServlet {
 			try {
 				Cart c = (Cart) this.getServletContext().getAttribute("cart");
 				export("ethan", "ethan_1", filename, c);
-				request.setAttribute("xml_file", f);
-				request.getRequestDispatcher("/Done.jspx")
-				.forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else{
-			request.getRequestDispatcher("/index.jspx")
-				.forward(request, response);
 		}
+		request.getRequestDispatcher("/index.jspx").forward(request, response);
 	}
 
 	public void export(String customername, String ordernumber, 
@@ -77,7 +70,7 @@ public class CheckOutController extends HttpServlet {
 	    
 	    StringWriter sw = new StringWriter();
 	    sw.write("<?xml version='1.0'?>\n");
-	    //sw.write("<?xml-stylesheet type=\"text/xsl\" href=\"PO.xsl\"?>");
+	    sw.write("<?xml-stylesheet type=\"text/xsl\" href=\"PO.xsl\"?>");
 	    sw.write("\n");
 	    marshaller.marshal(order, new StreamResult(sw));
 	    

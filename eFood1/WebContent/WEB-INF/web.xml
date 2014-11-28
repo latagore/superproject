@@ -18,6 +18,10 @@
     <servlet-class>ctrl.HomePageController</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>Order</servlet-name>
+    <servlet-class>ctrl.OrderController</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>ctrl.LoginController</servlet-class>
   </servlet>

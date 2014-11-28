@@ -60,6 +60,7 @@
 								<li><a href="${pageContext.request.contextPath}/eFoods/checkout/"><i class="fa fa-crosshairs"> Checkout </i></a></li>
 								<li><a href="${pageContext.request.contextPath}/eFoods/cart/"><i class="fa fa-shopping-cart"> Cart </i></a></li>
 								<li><a href="login.html"><i class="fa fa-lock"> Login</i></a></li>
+								<li><a href="${pageContext.request.contextPath}/eFoods/order/"><i class="fa fa-file"> Orders</i></a></li>
 							</ul>
 						</div>
 					</div>
