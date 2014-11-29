@@ -119,6 +119,12 @@ public class Front extends HttpServlet {
 			// redirect to cart controller
 			this.getServletContext().getNamedDispatcher("Cart")
 					.forward(request, response);
+		} else if (path != null & path.matches("/login(/)?")){
+			// redirect to login controller
+			this.getServletContext().getNamedDispatcher("Login")
+					.forward(request, response);
+		} else {
+			request.getRequestDispatcher("/index.jspx").forward(request, response);
 		}
 	}
 

@@ -1,26 +1,46 @@
 package ctrl;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import javax.security.auth.login.LoginException;
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
-import model.Login;
+import model.bean.CustomerBean;
+
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 /**
  * Servlet implementation class LoginController
  */
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private URL authServerURL;
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public LoginController() {
 		super();
+	}
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		try {
+			authServerURL = new URL(this.getServletContext()
+					.getInitParameter("authServerURL"));
+		} catch (MalformedURLException e) {
+			throw new ServletException("AUTH server URL not properly configured", e);
+		}
 	}
 
 	/**
@@ -48,38 +68,87 @@ public class LoginController extends HttpServlet {
 						.append("Please reset your password, especially if you logged in with your CSE account.")
 						.toString();
 				request.setAttribute("error", error);
+				// FIXME change page
 				request.getRequestDispatcher("/WEB-INF/Login.jspx")
 					.forward(request, response);
 				return;
 			} else if (username != null){
-				Login login = (Login) this.getServletContext().getAttribute("login");
-				
-				try {
-					String token = login.getSecurityToken(username, password);
-					request.setAttribute("token", token);
-				} catch (LoginException e) {
-					// failed to login, go back to the login view
-					String error = e.getMessage();
-					request.setAttribute("error", error);
-					request.getRequestDispatcher(request.getPathInfo())
-							.forward(request, response);
+
+				CustomerBean cb = checkLogin(username, password);
+				if (cb != null){
+					request.getSession().setAttribute("user", cb);
+					request.getRequestDispatcher(redirectURL)
+						.forward(request, response);
+					return;
+				} else {
+					// TODO change to redirect back to login page and redirect
+					request.getRequestDispatcher("/cart.jspx")
+						.forward(request, response);
 					return;
 				}
-				
-			}
-			
-			// all was successful, go to the redirectURL page
-			// TODO should there be an intermediate page?
-			if (redirectURL == null || redirectURL.equals("")){
-				request.getRequestDispatcher("/")
-						.forward(request, response);
-			} else {
-				request.getRequestDispatcher(redirectURL)
-						.forward(request, response);
 			}
 		} else {
-			request.getRequestDispatcher("/WEB-INF/Login.jspx")
+			// FIXME change default jsp
+			request.getRequestDispatcher("/home.jspx")
 					.forward(request, response);
+			return;
+		}
+	}
+
+	private CustomerBean checkLogin(String username, String password)
+			throws ServletException {
+		HttpsURLConnection connection = null;
+
+		try {
+			//Create connection
+
+			String usernamePasswordBase64 = Base64.encode((username+":"+password).getBytes());
+
+			
+			connection = (HttpsURLConnection) authServerURL.openConnection();
+			connection.setRequestMethod("GET");  
+			connection.setRequestProperty("Authorization", 
+					"Basic " + usernamePasswordBase64);
+
+			connection.setUseCaches (false);
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+
+			//Send request
+			DataOutputStream wr = new DataOutputStream (
+					connection.getOutputStream ());
+
+			String urlParameters = "";
+			wr.writeBytes (urlParameters);
+			wr.flush ();
+			wr.close ();
+
+
+			//Get Response    
+			int responseCode =connection.getResponseCode();
+			if (responseCode == 401) { 
+				return null;
+			} else if (responseCode == 200) {
+				
+				// unmarshall the output
+				InputStream is = connection.getInputStream();
+				CustomerBean cb = new CustomerBean();
+			    JAXBContext jc = JAXBContext.newInstance(cb.getClass());
+			    Unmarshaller u = jc.createUnmarshaller();
+			    cb = (CustomerBean) u.unmarshal(is);
+				
+				return cb;
+			} else {
+				throw new ServletException("AUTH server gave an unexpected response code:" + responseCode);
+			}
+
+		} catch (Exception e) {
+			throw new ServletException(e);
+		} finally {
+
+			if(connection != null) {
+				connection.disconnect(); 
+			}
 		}
 	}
 

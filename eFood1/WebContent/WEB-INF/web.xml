@@ -33,6 +33,10 @@
     <param-name>defaultShippingCost</param-name>
     <param-value>5.00</param-value>
   </context-param>
+  <context-param>
+    <param-name>authServerURL</param-name>
+    <param-value>https://www.eecs.yorku.ca/~cse03062/4413/auth.cgi</param-value>
+  </context-param>
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Protected Context</web-resource-name>
