@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,8 +22,12 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import model.Cart;
+import model.Category;
 import model.Order;
+import model.bean.CartBean;
+import model.bean.CategoryBean;
 import model.bean.CustomerBean;
+import model.bean.ItemBean;
 
 /**
  * Servlet implementation class CheckOutController
@@ -43,25 +50,44 @@ public class CheckOutController extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setAttribute("target", "/checkout.jspx");
 		String checkout = request.getParameter("checkout");
+		Cart cm = (Cart) this.getServletContext().getAttribute("cart");
+		CartBean c = cm.cart;
+		
+		double subTotal = c.getSubTotal();
+		double tax = cm.getTax(c);
+		double shipping = cm.getShipping(c);
+		double grandTotal = cm.getGrandTotal(c);
+		
+		Map<ItemBean, Integer> itemlist = cm.getCart();
+		request.setAttribute("itemlist", itemlist);
+		request.setAttribute("cart", c);
+		request.setAttribute("subTotal", subTotal);
+		request.setAttribute("tax", tax);
+		request.setAttribute("shipping", shipping);
+		request.setAttribute("grandTotal", grandTotal);
+		Category category = (Category) this.getServletContext().getAttribute("category");
+		List<CategoryBean> l;
+		try {
+			l = category.getCategories();
+		} catch (SQLException e1) {
+			throw new ServletException("failed to get categories",e1);
+		}
+
+		request.setAttribute("categories", l);
 		if (checkout != null){
-			CustomerBean cb = (CustomerBean) request.getSession().getAttribute("customer");
-			if (cb == null){
-//				String error = "You have not logged in.";
-//				request.setAttribute("target", "/login.jspx");
-//				request.setAttribute("loginError", error);
-//				request.getRequestDispatcher("/index.jspx")
-//					.forward(request, response);
+			CustomerBean customerBean = (CustomerBean) request.getSession().getAttribute("customer");
+			if (customerBean == null){
 				response.sendRedirect("/eFood1/eFoods/login");
 				return;
 			} else {
-				String account = cb.getAccount();
+				String account = customerBean.getAccount();
 				String orderFolder = this.getServletContext().getRealPath("/order");
 				int PO_number = getNewPONumber(orderFolder, account);
 				String f = "order/" + account + "_" + PO_number  + ".xml";
 				String filename = this.getServletContext().getRealPath("/" + f);
 				try {
-					Cart c = (Cart) this.getServletContext().getAttribute("cart");
-					export("ethan", "ethan_1", filename, c);
+//					Cart c = (Cart) this.getServletContext().getAttribute("cart");
+					export("ethan", "ethan_1", filename, cm);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

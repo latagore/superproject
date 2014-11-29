@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">
 	<jsp:directive.page contentType="text/html; charset=UTF-8" 
 		pageEncoding="UTF-8" session="false"/>
 	<jsp:output doctype-root-element="html"
@@ -26,69 +28,6 @@
 				  <li class="active">Check out</li>
 				</ol>
 			</div><!--/breadcrums-->
-
-			<div class="shopper-informations">
-				<div class="row">
-					<div class="col-sm-3">
-						<div class="shopper-info">
-							<p>Shopper Information</p>
-							<form>
-								<input type="text" placeholder="Full Name"/>
-							</form>
-						</div>
-					</div>
-					<div class="col-sm-5 clearfix">
-						<div class="bill-to">
-							<p>Bill To</p>
-							<div class="form-one">
-								<form>
-									<input type="text" placeholder="Company Name"/>
-									<input type="text" placeholder="Email*"/>
-									<input type="text" placeholder="Title"/>
-									<input type="text" placeholder="First Name *"/>
-									<input type="text" placeholder="Middle Name"/>
-									<input type="text" placeholder="Last Name *"/>
-									<input type="text" placeholder="Address 1 *"/>
-									<input type="text" placeholder="Address 2"/>
-								</form>
-							</div>
-							<div class="form-two">
-								<form>
-									<input type="text" placeholder="Zip / Postal Code *"/>
-									<select>
-										<option>-- Country --</option>
-										<option>Canada</option>
-									</select>
-									<select>
-										<option>-- State / Province / Region --</option>
-										<option>Ontario</option>
-										<option>Quebec</option>
-										<option>Nova Scotia</option>
-										<option>New Brunswick</option>
-										<option>Manitoba</option>
-										<option>British Columbia</option>
-										<option>Prince Edward Island</option>
-										<option>Saskatchewan</option>
-										<option>Alberta</option>
-										<option>Newfoundland and Labrador</option>
-									</select>
-									<input type="password" placeholder="Confirm password"/>
-									<input type="text" placeholder="Phone *"/>
-									<input type="text" placeholder="Mobile Phone"/>
-									<input type="text" placeholder="Fax"/>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="order-message">
-							<p>Shipping Order</p>
-							<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"><jsp:text />	</textarea>
-							<label><input type="checkbox"> Shipping to bill address</input></label>
-						</div>	
-					</div>					
-				</div>
-			</div>
 			
 			<div class="review-payment">
 				<h2>Review and Payment</h2>
@@ -107,104 +46,58 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="cart_item_ID">
-								<p>1089772</p>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Item name</a></h4>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2"/>
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="cart_item_ID">
-								<p>1089772</p>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Item name</a></h4>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2"/>
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="cart_item_ID">
-								<p>1089772</p>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Item name</a></h4>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2"/>
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-
+						<c:forEach items="${itemlist}" var="item">
+							<tr>
+								<td class="cart_item_ID">
+									<p>${item.key.id }</p>
+								</td>
+								<td class="cart_description">
+									<h4>
+										${item.key.name }
+									</h4>
+								</td>
+								<td class="cart_price">
+									<p id="${item.key.id}_price"><f:formatNumber type="currency">${item.key.price }</f:formatNumber></p>
+								</td>
+								<td class="item_quantity">
+									<div class="item_quantity_button">
+										<button class="item_quantity_up" onclick="CartincreaseQuantity(this,${item.key.price})" value="${item.key.id}"> + </button>
+										<input
+											class="cart_quantity_input" type="text" id="${item.key.id }_item_quantity"
+											value="${item.value }" autocomplete="off" size="2" /> 
+											<button class="item_quantity_down" onclick="CartdecreaseQuantity(this,${item.key.price})" value="${item.key.id}"> - </button>
+									</div>
+								</td>
+								<td class="cart_total">
+									<p class="cart_total_price" id="${item.key.id}_total"><f:formatNumber type="currency">${item.key.price * item.value}</f:formatNumber></p>
+								</td>
+								<td class="cart_delete">
+									<form name="${item.key.id}_submit">
+										<input type="hidden" class="cart_quantity_delete" name="removeItem" value="${item.key.id }"/>
+										<button class="cart_quantity_delete" href=""><i class="fa fa-times"></i></button>
+									</form>
+								</td>
+							</tr>
+							</c:forEach>
 						<tr>
 							<td colspan="4">&#160;</td>
 							<td colspan="2">
 								<table class="table table-condensed total-result">
 									<tr>
 										<td>Cart Sub Total</td>
-										<td>$59</td>
+										<td><f:formatNumber type="currency">${subTotal }</f:formatNumber></td>
 									</tr>
 									<tr>
-										<td>PST</td>
-										<td>$2</td>
-									</tr>
-									<tr>
-										<td>GST</td>
-										<td>$2</td>
+										<td>Taxes</td>
+										<td><f:formatNumber type="currency">${tax }</f:formatNumber></td>
 									</tr>
 									<tr class="shipping-cost">
 										<td>Shipping Cost</td>
-										<td>Free</td>										
+										<td><f:formatNumber type="currency">${shipping }</f:formatNumber></td>										
 									</tr>
 									<tr>
 										<td>Total</td>
-										<td><span>$63</span></td>
+										<td><span><f:formatNumber type="currency">${grandTotal }</f:formatNumber></span></td>
 									</tr>
 								</table>
 							</td>
