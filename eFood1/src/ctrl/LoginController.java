@@ -54,6 +54,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("target", "login.jspx");
 		String username = request.getParameter("username"); // TODO right name?
 		String password = request.getParameter("password");
 		String redirectURL = request.getParameter("redirectURL");
@@ -69,7 +70,7 @@ public class LoginController extends HttpServlet {
 						.toString();
 				request.setAttribute("error", error);
 				// FIXME change page
-				request.getRequestDispatcher("/WEB-INF/Login.jspx")
+				request.getRequestDispatcher("index.jspx")
 					.forward(request, response);
 				return;
 			} else if (username != null){
