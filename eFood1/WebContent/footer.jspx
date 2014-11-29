@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+			xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<jsp:directive.page contentType="text/html; charset=UTF-8" 
 		pageEncoding="UTF-8" session="false"/>
 	<jsp:output doctype-root-element="html"
@@ -31,61 +32,53 @@
 					<div class="col-sm-7">
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="${pageContext.request.contextPath}/images/home/iframe1.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"><jsp:text/></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<div class="iframe-img">
+									<img src="${pageContext.request.contextPath}/images/home/iframe1.png" alt="" />
+								</div>
+								<div class="overlay-icon">
+									<i class="fa fa-play-circle-o"><jsp:text/></i>
+								</div>
+								<p>Food R Us</p>
+								<h2>28 Nov 2014</h2>
 							</div>
 						</div>
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="${pageContext.request.contextPath}/images/home/iframe2.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"><jsp:text/></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<div class="iframe-img">
+									<img src="${pageContext.request.contextPath}/images/home/iframe2.png" alt="" />
+								</div>
+								<div class="overlay-icon">
+									<i class="fa fa-play-circle-o"><jsp:text/></i>
+								</div>
+								<p>Food R Us</p>
+								<h2>28 Nov 2014</h2>
 							</div>
 						</div>
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="${pageContext.request.contextPath}/images/home/iframe3.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"><jsp:text/></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<div class="iframe-img">
+									<img src="${pageContext.request.contextPath}/images/home/iframe3.png" alt="" />
+								</div>
+								<div class="overlay-icon">
+									<i class="fa fa-play-circle-o"><jsp:text/></i>
+								</div>
+								<p>Food R Us</p>
+								<h2>28 Nov 2014</h2>
 							</div>
 						</div>
 						
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="${pageContext.request.contextPath}/images/home/iframe4.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"><jsp:text/></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<div class="iframe-img">
+									<img src="${pageContext.request.contextPath}/images/home/iframe4.png" alt="" />
+								</div>
+								<div class="overlay-icon">
+									<i class="fa fa-play-circle-o"><jsp:text/></i>
+								</div>
+								<p>Food R Us</p>
+								<h2>28 Nov 2014</h2>
 							</div>
 						</div>
 					</div>
@@ -116,12 +109,11 @@
 					</div>
 					<div class="col-sm-2">
 						<div class="single-widget">
-							<h2>QuIck Shop</h2>
+							<h2>Quick Shop</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Meat</a></li>
-								<li><a href="#">Cheese</a></li>
-								<li><a href="#">Ice Cream</a></li>
-								<li><a href="#">Cereal</a></li>
+							<c:forEach var="cat" items="${categories}">
+								<li><a href="${pageContext.request.contextPath}/eFoods/category/${cat.name}">${cat.name}</a></li>
+							</c:forEach>
 							</ul>
 						</div>
 					</div>

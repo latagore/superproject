@@ -50,7 +50,13 @@
 											<img src="${pageContext.request.contextPath}/images/home/f_food1.jpg" alt="" />
 											<h2>$6.49/lb</h2>
 											<p>T6 Sirloin Meat</p>
-											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+											<form name="0905A112_submit">
+											<td class="cart_add">
+												<input type="hidden" name="itemID" value="0905A112"/>
+												<input type="hidden" name="0905A112_itemquantity" value="1"/>
+												<button class="btn btn-default add-to-cart" id="0905A112_btnCart" onclick="getquantity(this)" value="0905A112"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</button >
+											</td>
+											</form>
 										</div>
 								</div>
 							</div>
@@ -62,7 +68,13 @@
 										<img src="${pageContext.request.contextPath}/images/home/f_food2.jpg" alt="" />
 										<h2>$6.72/lb</h2>
 										<p>R3 Breast Meat</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text/></i>Add to cart</a>
+										<form name="0905A306_submit">
+											<td class="cart_add">
+												<input type="hidden" name="itemID" value="0905A306"/>
+												<input type="hidden" name="0905A306_itemquantity" value="1"/>
+												<button class="btn btn-default add-to-cart" id="0905A306_btnCart" onclick="getquantity(this)" value="0905A306"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</button >
+											</td>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -74,7 +86,13 @@
 										<img src="${pageContext.request.contextPath}/images/home/f_food3.jpg" alt="" />
 										<h2>$4.3/ea</h2>
 										<p>Brownie Ice Cream with Strawberry</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+										<form name="1409S253_submit">
+											<td class="cart_add">
+												<input type="hidden" name="itemID" value="1409S253"/>
+												<input type="hidden" name="1409S253_itemquantity" value="1"/>
+												<button class="btn btn-default add-to-cart" id="1409S253_btnCart" onclick="getquantity(this)" value="1409S253"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</button >
+											</td>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -86,7 +104,13 @@
 										<img src="${pageContext.request.contextPath}/images/home/f_food4.jpg" alt="" />
 										<h2>$4.26/ea</h2>
 										<p>Semi-Cheddar Cheese by JC</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+										<form name="2002H063_submit">
+											<td class="cart_add">
+												<input type="hidden" name="itemID" value="2002H063"/>
+												<input type="hidden" name="2002H063_itemquantity" value="1"/>
+												<button class="btn btn-default add-to-cart" id="2002H063_btnCart" onclick="getquantity(this)" value="2002H063"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</button >
+											</td>
+										</form>
 									</div>
 									<img src="${pageContext.request.contextPath}/images/home/new.png" class="new" alt="" />
 								</div>
@@ -99,7 +123,13 @@
 										<img src="${pageContext.request.contextPath}/images/home/f_food5.jpg" alt="" />
 										<h2>$1.42/ea</h2>
 										<p>K5 Raisin Cereal</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+										<form name="2910h734_submit">
+											<td class="cart_add">
+												<input type="hidden" name="itemID" value="2910h734"/>
+												<input type="hidden" name="2910h734_itemquantity" value="1"/>
+												<button class="btn btn-default add-to-cart" id="2910h734_btnCart" onclick="getquantity(this)" value="2910h734"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</button >
+											</td>
+										</form>
 									</div>
 									<img src="${pageContext.request.contextPath}/images/home/sale.png" class="new" alt="" />
 								</div>
@@ -112,7 +142,13 @@
 										<img src="${pageContext.request.contextPath}/images/home/f_food6.jpg" alt="" />
 										<h2>$6.12/box</h2>
 										<p>E8 Nuts Ice cream</p>
-										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</a>
+										<form name="1409S123_submit">
+											<td class="cart_add">
+												<input type="hidden" name="itemID" value="1409S123"/>
+												<input type="hidden" name="1409S123_itemquantity" value="1"/>
+												<button class="btn btn-default add-to-cart" id="1409S123_btnCart" onclick="getquantity(this)" value="1409S123"><i class="fa fa-shopping-cart"><jsp:text /></i>Add to cart</button >
+											</td>
+										</form>
 									</div>
 								</div>
 							</div>
