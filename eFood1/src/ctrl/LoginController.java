@@ -55,9 +55,15 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("target", "login.jspx");
+		
 		String username = request.getParameter("username"); // TODO right name?
 		String password = request.getParameter("password");
+		// FIXME not working, go to home page instead
 		String redirectURL = request.getParameter("redirectURL");
+		if (redirectURL == null){
+			request.getHeader("referer");
+		}
+		request.setAttribute("redirectURL", redirectURL);
 		if (password != null){
 			if (!request.isSecure()){
 				// this is very bad, the user could have just lost their password to a man-in-the-middle
@@ -68,29 +74,31 @@ public class LoginController extends HttpServlet {
 						.append("You may have lost your password to bad people. ")
 						.append("Please reset your password, especially if you logged in with your CSE account.")
 						.toString();
-				request.setAttribute("error", error);
-				// FIXME change page
+				request.setAttribute("loginError", error);
 				request.getRequestDispatcher("index.jspx")
 					.forward(request, response);
 				return;
 			} else if (username != null){
 
 				CustomerBean cb = checkLogin(username, password);
-				if (cb != null){
-					request.getSession().setAttribute("user", cb);
-					request.getRequestDispatcher(redirectURL)
+				if (cb != null){ // successful login
+					request.getSession().setAttribute("customer", cb);
+					request.setAttribute("success", true);
+					request.setAttribute("redirectURL", redirectURL);
+					request.getRequestDispatcher("/index.jspx")
 						.forward(request, response);
 					return;
-				} else {
-					// TODO change to redirect back to login page and redirect
-					request.getRequestDispatcher("/cart.jspx")
+				} else { // failed login
+					// redirect back to login page and give error
+					request.setAttribute("loginError", "Wrong username and password. Please try again.");
+					request.getRequestDispatcher("/index.jspx")
 						.forward(request, response);
 					return;
 				}
 			}
 		} else {
 			// FIXME change default jsp
-			request.getRequestDispatcher("/home.jspx")
+			request.getRequestDispatcher("/index.jspx")
 					.forward(request, response);
 			return;
 		}

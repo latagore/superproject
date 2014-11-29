@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,7 @@ import javax.xml.validation.SchemaFactory;
 
 import model.Cart;
 import model.Order;
+import model.bean.CustomerBean;
 
 /**
  * Servlet implementation class CheckOutController
@@ -41,7 +44,11 @@ public class CheckOutController extends HttpServlet {
 		request.setAttribute("target", "/checkout.jspx");
 		String checkout = request.getParameter("checkout");
 		if (checkout != null){
-			String f = "order/ethan.xml";
+			CustomerBean cb = (CustomerBean) request.getSession().getAttribute("customer");
+			String account = cb.getAccount();
+			String orderFolder = this.getServletContext().getRealPath("/order");
+			int PO_number = getNewPONumber(orderFolder, account);
+			String f = "order/" + account + "_" + PO_number  + ".xml";
 			String filename = this.getServletContext().getRealPath("/" + f);
 			try {
 				Cart c = (Cart) this.getServletContext().getAttribute("cart");
@@ -51,6 +58,24 @@ public class CheckOutController extends HttpServlet {
 			}
 		}
 		request.getRequestDispatcher("/index.jspx").forward(request, response);
+	}
+
+	private int getNewPONumber(String orderFolder, String account) {
+		// TODO Auto-generated method stub
+		File dir = new File(orderFolder);
+		File[] dirFiles = dir.listFiles();
+		int greatestPONumber = 1;
+		Pattern p = Pattern.compile(account + "_(\\d)+.xml");
+		for (File f : dirFiles){
+			Matcher m = p.matcher(f.getName());
+					
+			if (m.find()){
+				int i = Integer.parseInt(m.group(1));
+				greatestPONumber = i > greatestPONumber ? i : greatestPONumber;
+			}
+		}
+			
+		return greatestPONumber;
 	}
 
 	public void export(String customername, String ordernumber, 

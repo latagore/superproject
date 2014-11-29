@@ -85,7 +85,7 @@ public class Front extends HttpServlet {
 			// redirect to home page controller
 			this.getServletContext().getNamedDispatcher("HomePage")
 				.forward(request, response);
-		}if (path != null & request.getParameter("report") != null){
+		} else if (path != null & request.getParameter("report") != null){
 			// redirect to search controller
 			this.getServletContext().getNamedDispatcher("Category")
 				.forward(request, response);
