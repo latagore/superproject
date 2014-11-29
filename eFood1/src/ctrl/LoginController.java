@@ -34,6 +34,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("target", "login.jspx");
 		String username = request.getParameter("username"); // TODO right name?
 		String password = request.getParameter("password");
 		String redirectURL = request.getParameter("redirectURL");
@@ -48,7 +49,7 @@ public class LoginController extends HttpServlet {
 						.append("Please reset your password, especially if you logged in with your CSE account.")
 						.toString();
 				request.setAttribute("error", error);
-				request.getRequestDispatcher("/WEB-INF/Login.jspx")
+				request.getRequestDispatcher("Login.jspx")
 					.forward(request, response);
 				return;
 			} else if (username != null){
@@ -78,7 +79,7 @@ public class LoginController extends HttpServlet {
 						.forward(request, response);
 			}
 		} else {
-			request.getRequestDispatcher("/WEB-INF/Login.jspx")
+			request.getRequestDispatcher("login.jspx")
 					.forward(request, response);
 		}
 	}
