@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,4 +93,25 @@ public class ItemDAO {
 		return item;
 	}
 
+	public List<ItemBean> getItemByName(String itemName) throws SQLException{
+		Connection con = this.ds.getConnection();
+		Statement s = con.createStatement();
+		s.executeUpdate("set schema roumani");
+		String query = "select number, name, price, unit from item where name like '%" + itemName + "%'";
+		ResultSet r = s.executeQuery(query);
+		List<ItemBean> l = new ArrayList<ItemBean>();
+		
+		while (r.next()){
+			String id = r.getString("number");
+			String name = r.getString("name");
+			Double price = r.getDouble("price");
+			String unit = r.getString("unit");
+			l.add(new ItemBean(id, name, price,unit));
+		}
+		
+		r.close();
+		s.close();
+		con.close();
+		return l;
+	}
 }

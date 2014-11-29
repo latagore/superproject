@@ -2,6 +2,7 @@ package ctrl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -52,7 +53,10 @@ public class CategoryController extends HttpServlet {
 			boolean isAllItemsSelected = true;
 			// if path starts with /category, specific category is selected
 			// otherwise, if path starts with /allItems, all items are selected
-			if (path.startsWith("/category")){
+			if (request.getParameter("report") != null){
+				String itemName = request.getParameter("search");
+				items = im.getItembyName(itemName);
+			}else if (path.startsWith("/category")){
 				isAllItemsSelected = false;
 
 				// get the information after "/category/" in the path			
@@ -61,24 +65,25 @@ public class CategoryController extends HttpServlet {
 						.indexOf('/')+2); // removes everything before the second slash
 
 				// check if category exists
-				if (!cm.hasCategory(categoryName)){
-					// TODO go to 404 page
-					return;
-				}
-
+				if (categoryName.equals("allItems")){
+					items = im.getAllItems();
+				}else{
 				// get all the items for this category
-				int categoryID = cm.getCategory(categoryName);
-				items = im.getItemsByCategoryName(categoryID);
-				request.setAttribute("selectedCategory", categoryName);
-
-			} else if (path.matches("/allItems(/)?")){
-				items = im.getAllItems();
+					int categoryID = cm.getCategory(categoryName);
+					items = im.getItemsByCategoryName(categoryID);
+					request.setAttribute("selectedCategory", categoryName);
+				}
 			} else {
 				// TODO log error in a better way
 				throw new ServletException("Category controller was reached but path is not acceptable: path = " + path);
 			}
 
 			// redirect to category jsp
+			if (items.size() == 0){
+				request.setAttribute("hasItem", true);
+			}else{
+				request.setAttribute("hasItem", false);
+			}
 			request.setAttribute("categories", allCategories);
 			request.setAttribute("items", items);
 			request.setAttribute("isAllItemsSelected", isAllItemsSelected);

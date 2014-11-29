@@ -25,5 +25,7 @@ public class Item {
 	public model.bean.ItemBean getItem(String itemNumber) throws SQLException {
 		return dao.getItem(itemNumber);
 	}
-
+	public List<ItemBean> getItembyName(String itemName) throws SQLException {
+		return dao.getItemByName(itemName);
+	}
 }

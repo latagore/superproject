@@ -44,10 +44,10 @@
 								<td></td>
 							</tr>
 						</thead>
-						<div class="col-md-7" id="suggested_items">
-							&#160;
-						</div>
 						<tbody>
+							<div class="col-md-7" id="suggested_items"><tr>
+								&#160;
+							</tr></div>
 							<c:forEach items="${itemlist}" var="item">
 							<tr>
 								<td class="cart_item_ID">
