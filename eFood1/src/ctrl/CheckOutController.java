@@ -34,30 +34,32 @@ import model.bean.ItemBean;
  */
 public class CheckOutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CheckOutController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CheckOutController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setAttribute("target", "/checkout.jspx");
 		String checkout = request.getParameter("checkout");
 		Cart cm = (Cart) this.getServletContext().getAttribute("cart");
 		CartBean c = cm.cart;
-		
+
 		double subTotal = c.getSubTotal();
 		double tax = cm.getTax(c);
 		double shipping = cm.getShipping(c);
 		double grandTotal = cm.getGrandTotal(c);
-		
+
 		Map<ItemBean, Integer> itemlist = cm.getCart();
 		request.setAttribute("itemlist", itemlist);
 		request.setAttribute("cart", c);
@@ -65,29 +67,34 @@ public class CheckOutController extends HttpServlet {
 		request.setAttribute("tax", tax);
 		request.setAttribute("shipping", shipping);
 		request.setAttribute("grandTotal", grandTotal);
-		Category category = (Category) this.getServletContext().getAttribute("category");
+		Category category = (Category) this.getServletContext().getAttribute(
+				"category");
 		List<CategoryBean> l;
 		try {
 			l = category.getCategories();
 		} catch (SQLException e1) {
-			throw new ServletException("failed to get categories",e1);
+			throw new ServletException("failed to get categories", e1);
 		}
 
 		request.setAttribute("categories", l);
-		if (checkout != null){
-			CustomerBean customerBean = (CustomerBean) request.getSession().getAttribute("customer");
-			if (customerBean == null){
+		if (checkout != null) {
+			CustomerBean customerBean = (CustomerBean) request.getSession()
+					.getAttribute("customer");
+			if (customerBean == null) {
 				response.sendRedirect("/eFood1/eFoods/login");
 				return;
 			} else {
 				String account = customerBean.getAccount();
-				String orderFolder = this.getServletContext().getRealPath("/order");
+				String orderFolder = this.getServletContext().getRealPath(
+						"/order");
 				int PO_number = getNewPONumber(orderFolder, account);
-				String f = "order/" + account + "_" + PO_number  + ".xml";
+				String f = "order/" + account + "_" + PO_number + ".xml";
 				String filename = this.getServletContext().getRealPath("/" + f);
+
 				try {
-//					Cart c = (Cart) this.getServletContext().getAttribute("cart");
-					export("ethan", "ethan_1", filename, cm);
+					// Cart c = (Cart)
+					// this.getServletContext().getAttribute("cart");
+					export(PO_number, filename, cm, customerBean);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -102,47 +109,49 @@ public class CheckOutController extends HttpServlet {
 		File[] dirFiles = dir.listFiles();
 		int greatestPONumber = 1;
 		Pattern p = Pattern.compile(account + "_(\\d)+.xml");
-		for (File f : dirFiles){
+		for (File f : dirFiles) {
 			String fileName = f.getName();
 			Matcher m = p.matcher(f.getName());
-					
-			if (m.find()){
+
+			if (m.find()) {
 				int i = Integer.parseInt(m.group(1));
 				greatestPONumber = i > greatestPONumber ? i : greatestPONumber;
 			}
 		}
-			
+
 		return greatestPONumber + 1;
 	}
 
-	public void export(String customername, String ordernumber, 
-				String filename, Cart c) throws Exception{
+	public void export(int ordernumber,
+			String filename, Cart c, CustomerBean cb) throws Exception {
 
 		String path = filename.substring(0, filename.lastIndexOf("/"));
-		
-		Order order = new Order(c);
-	    JAXBContext jc = JAXBContext.newInstance(order.getClass());
-	    Marshaller marshaller = jc.createMarshaller();
-	    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-	    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-	    
-	    SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-	    Schema schema = sf.newSchema(new File(path+"/PO.xsd"));
-	    marshaller.setSchema(schema);
-	    
-	    StringWriter sw = new StringWriter();
-	    sw.write("<?xml version='1.0'?>\n");
-	    sw.write("<?xml-stylesheet type=\"text/xsl\" href=\"PO.xsl\"?>");
-	    sw.write("\n");
-	    marshaller.marshal(order, new StreamResult(sw));
-	    
-	    System.out.println(sw.toString()); // for debugging
-	    FileWriter fw = new FileWriter(filename);
-	    fw.write(sw.toString());
-	    fw.close();
+
+		Order order = new Order(c, cb, ordernumber);
+		JAXBContext jc = JAXBContext.newInstance(order.getClass());
+		Marshaller marshaller = jc.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+
+		SchemaFactory sf = SchemaFactory
+				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		Schema schema = sf.newSchema(new File(path + "/PO.xsd"));
+		marshaller.setSchema(schema);
+
+		StringWriter sw = new StringWriter();
+		sw.write("<?xml version='1.0'?>\n");
+		sw.write("<?xml-stylesheet type=\"text/xsl\" href=\"PO.xsl\"?>");
+		sw.write("\n");
+		marshaller.marshal(order, new StreamResult(sw));
+
+		System.out.println(sw.toString()); // for debugging
+		FileWriter fw = new FileWriter(filename);
+		fw.write(sw.toString());
+		fw.close();
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		this.doGet(request, response);
 	}

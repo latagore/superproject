@@ -37,8 +37,8 @@ public class Order
 		
 	}
    
-	public Order(Cart c) {
-		this.id = 1;
+	public Order(Cart c, CustomerBean cb, int id) {
+		this.id = id;
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		this.submitted = sdf.format(d);
@@ -47,7 +47,7 @@ public class Order
 		for (ItemBean i:order.keySet()){
 			list.add(new ItemMarshaller(i.getName(), i.getPrice(), order.get(i), i.getPrice()*order.get(i),i.getId()));
 		}
-		this.customer = new CustomerBean("ethan", "cse13093");
+		this.customer = cb;
 		this.m = new Marshaller(list);
 		this.total = c.cart.getSubTotal();
 		this.shipping = c.getShipping(c.cart);
