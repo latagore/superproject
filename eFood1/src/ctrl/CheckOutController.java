@@ -45,16 +45,26 @@ public class CheckOutController extends HttpServlet {
 		String checkout = request.getParameter("checkout");
 		if (checkout != null){
 			CustomerBean cb = (CustomerBean) request.getSession().getAttribute("customer");
-			String account = cb.getAccount();
-			String orderFolder = this.getServletContext().getRealPath("/order");
-			int PO_number = getNewPONumber(orderFolder, account);
-			String f = "order/" + account + "_" + PO_number  + ".xml";
-			String filename = this.getServletContext().getRealPath("/" + f);
-			try {
-				Cart c = (Cart) this.getServletContext().getAttribute("cart");
-				export("ethan", "ethan_1", filename, c);
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (cb == null){
+//				String error = "You have not logged in.";
+//				request.setAttribute("target", "/login.jspx");
+//				request.setAttribute("loginError", error);
+//				request.getRequestDispatcher("/index.jspx")
+//					.forward(request, response);
+				response.sendRedirect("/eFood1/eFoods/login");
+				return;
+			} else {
+				String account = cb.getAccount();
+				String orderFolder = this.getServletContext().getRealPath("/order");
+				int PO_number = getNewPONumber(orderFolder, account);
+				String f = "order/" + account + "_" + PO_number  + ".xml";
+				String filename = this.getServletContext().getRealPath("/" + f);
+				try {
+					Cart c = (Cart) this.getServletContext().getAttribute("cart");
+					export("ethan", "ethan_1", filename, c);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		request.getRequestDispatcher("/index.jspx").forward(request, response);
@@ -67,6 +77,7 @@ public class CheckOutController extends HttpServlet {
 		int greatestPONumber = 1;
 		Pattern p = Pattern.compile(account + "_(\\d)+.xml");
 		for (File f : dirFiles){
+			String fileName = f.getName();
 			Matcher m = p.matcher(f.getName());
 					
 			if (m.find()){
@@ -75,7 +86,7 @@ public class CheckOutController extends HttpServlet {
 			}
 		}
 			
-		return greatestPONumber;
+		return greatestPONumber + 1;
 	}
 
 	public void export(String customername, String ordernumber, 
